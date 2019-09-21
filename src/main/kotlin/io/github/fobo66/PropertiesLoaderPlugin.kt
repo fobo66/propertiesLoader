@@ -4,8 +4,10 @@ import org.gradle.api.Project
 import org.gradle.api.Plugin
 import org.gradle.api.file.FileCollection
 import org.gradle.api.model.ObjectFactory
+import org.gradle.api.plugins.ExtraPropertiesExtension
 import org.gradle.api.tasks.InputFiles
 import java.io.FileInputStream
+import java.io.FileOutputStream
 import java.util.Properties
 import javax.inject.Inject
 
@@ -23,10 +25,18 @@ class PropertiesLoaderPlugin @Inject constructor(objects: ObjectFactory) : Plugi
     }
   }
 
-  fun loadProperties() {
-    propertiesFiles.files.forEach {
-      val properties = Properties()
-      properties.load(FileInputStream(it))
-    }
+  fun loadProperties(extras: ExtraPropertiesExtension) {
+    propertiesFiles.files.stream()
+            .map {
+                val properties = Properties()
+                properties.load(FileInputStream(it))
+                return@map properties
+            }
+            .flatMap {
+                return@flatMap it.entries.stream()
+            }
+            .forEach {
+                extras.set(it.component1().toString(), it.component2())
+            }
   }
 }
