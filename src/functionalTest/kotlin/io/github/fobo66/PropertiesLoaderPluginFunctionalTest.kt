@@ -3,8 +3,8 @@
  */
 package io.github.fobo66
 
-import java.io.File
 import org.gradle.testkit.runner.GradleRunner
+import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertTrue
 
@@ -19,7 +19,7 @@ class PropertiesLoaderPluginFunctionalTest {
         projectDir.resolve("settings.gradle").writeText("")
         projectDir.resolve("build.gradle").writeText("""
             plugins {
-                id('io.github.fobo66.propertiesloader')
+                id("io.github.fobo66.propertiesloader")
             }
         """)
 
@@ -29,7 +29,7 @@ class PropertiesLoaderPluginFunctionalTest {
         runner.withPluginClasspath()
         runner.withArguments("loadProperties")
         runner.withProjectDir(projectDir)
-        val result = runner.build();
+        val result = runner.build()
 
         // Verify the result
         assertTrue(result.output.contains("Hello from plugin 'io.github.fobo66.propertiesloader'"))
