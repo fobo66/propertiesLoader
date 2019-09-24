@@ -4,15 +4,18 @@
 package io.github.fobo66
 
 import org.gradle.testkit.runner.GradleRunner
+import org.gradle.testkit.runner.TaskOutcome
 import java.io.File
 import kotlin.test.Test
-import kotlin.test.assertTrue
+import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 /**
  * A simple functional test for the 'io.github.fobo66.propertiesloader' plugin.
  */
 class PropertiesLoaderPluginFunctionalTest {
-    @Test fun `can run task`() {
+    @Test
+    fun `can run task`() {
         // Setup the test build
         val projectDir = File("build/functionalTest")
         projectDir.mkdirs()
@@ -25,13 +28,42 @@ class PropertiesLoaderPluginFunctionalTest {
 
         // Run the build
         val runner = GradleRunner.create()
-        runner.forwardOutput()
-        runner.withPluginClasspath()
-        runner.withArguments("loadProperties")
-        runner.withProjectDir(projectDir)
+                .forwardOutput()
+                .withPluginClasspath()
+                .withArguments("loadProperties")
+                .withProjectDir(projectDir)
         val result = runner.build()
 
         // Verify the result
-        assertTrue(result.output.contains("Hello from plugin 'io.github.fobo66.propertiesloader'"))
+        assertNotNull(result.task(":loadProperties"))
+    }
+
+    @Test
+    fun `task runs successfully`() {
+        // Setup the test build
+        val projectDir = File("build/functionalTest")
+        projectDir.mkdirs()
+        projectDir.resolve("settings.gradle").writeText("")
+        projectDir.resolve("test.properties").writeText("testkey=testvalue")
+        projectDir.resolve("build.gradle").writeText("""
+            plugins {
+                id("io.github.fobo66.propertiesloader")
+            }
+            
+            propertiesLoader {
+                propertiesFiles.from(project.file("test.properties"))
+            }
+        """)
+
+        // Run the build
+        val runner = GradleRunner.create()
+                .forwardOutput()
+                .withPluginClasspath()
+                .withArguments("loadProperties")
+                .withProjectDir(projectDir)
+        val result = runner.build()
+
+        // Verify the result
+        assertEquals(TaskOutcome.SUCCESS, result.task(":loadProperties")?.outcome)
     }
 }

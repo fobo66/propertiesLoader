@@ -10,10 +10,6 @@ class PropertiesLoaderPlugin : Plugin<Project> {
 
         project.tasks.register<PropertiesLoaderTask>("loadProperties", PropertiesLoaderTask::class.java) { task ->
             task.propertiesFiles.from(extension.propertiesFiles)
-
-            task.doLast {
-                println("Hello from plugin 'io.github.fobo66.propertiesloader'")
-            }
         }
     }
 }
