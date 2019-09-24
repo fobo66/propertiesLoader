@@ -3,7 +3,9 @@
  */
 package io.github.fobo66
 
+import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Before
 import kotlin.test.Test
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
@@ -12,22 +14,22 @@ import kotlin.test.assertNotNull
  * Unit tests for the 'io.github.fobo66.propertiesloader' plugin.
  */
 class PropertiesLoaderPluginTest {
-    @Test
-    fun `plugin registers task`() {
-        // Create a test project and apply the plugin
-        val project = ProjectBuilder.builder().build()
-        project.plugins.apply("io.github.fobo66.propertiesloader")
 
-        // Verify the result
-        assertNotNull(project.tasks.findByName("loadProperties"))
+    private lateinit var project: Project
+
+    @Before
+    fun setUp() {
+        project = ProjectBuilder.builder().build()
+        project.plugins.apply("io.github.fobo66.propertiesloader")
+        project.file("test.properties").writeText("testkey=testvalue")
     }
 
     @Test
+    fun `plugin registers task`() {
+        assertNotNull(project.tasks.findByName("loadProperties"))
+    }
+    @Test
     fun `task loads properties`() {
-        // Create a test project and apply the plugin
-        val project = ProjectBuilder.builder().build()
-        project.plugins.apply("io.github.fobo66.propertiesloader")
-        project.file("test.properties").writeText("testkey=testvalue")
         project.tasks.named("loadProperties", PropertiesLoaderTask::class.java).configure {
             it.propertiesFiles.from(project.file("test.properties"))
         }
@@ -39,9 +41,7 @@ class PropertiesLoaderPluginTest {
 
     @Test
     fun `task not loads properties from files that are not properties`() {
-        val project = ProjectBuilder.builder().build()
-        project.plugins.apply("io.github.fobo66.propertiesloader")
-        project.file("test.txt").writeText("testkey=testvalue")
+        project.file("test.txt").writeText("test")
         project.tasks.named("loadProperties", PropertiesLoaderTask::class.java).configure {
             it.propertiesFiles.from(project.file("test.txt"))
         }
