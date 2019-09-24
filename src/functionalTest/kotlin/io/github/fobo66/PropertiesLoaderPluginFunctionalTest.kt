@@ -66,4 +66,28 @@ class PropertiesLoaderPluginFunctionalTest {
         // Verify the result
         assertEquals(TaskOutcome.SUCCESS, result.task(":loadProperties")?.outcome)
     }
+
+    @Test
+    fun `task skipped when no input files`() {
+        // Setup the test build
+        val projectDir = File("build/functionalTest")
+        projectDir.mkdirs()
+        projectDir.resolve("settings.gradle").writeText("")
+        projectDir.resolve("build.gradle").writeText("""
+            plugins {
+                id("io.github.fobo66.propertiesloader")
+            }
+        """)
+
+        // Run the build
+        val runner = GradleRunner.create()
+                .forwardOutput()
+                .withPluginClasspath()
+                .withArguments("loadProperties")
+                .withProjectDir(projectDir)
+        val result = runner.build()
+
+        // Verify the result
+        assertEquals(TaskOutcome.NO_SOURCE, result.task(":loadProperties")?.outcome)
+    }
 }

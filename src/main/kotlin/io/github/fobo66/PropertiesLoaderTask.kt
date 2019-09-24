@@ -4,6 +4,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.SkipWhenEmpty
 import org.gradle.api.tasks.TaskAction
 import java.io.FileInputStream
 import java.util.*
@@ -11,6 +12,7 @@ import java.util.*
 open class PropertiesLoaderTask @javax.inject.Inject constructor(objects: ObjectFactory) : DefaultTask() {
 
     @get:InputFiles
+    @get:SkipWhenEmpty
     val propertiesFiles : ConfigurableFileCollection = objects.fileCollection()
 
     @TaskAction
