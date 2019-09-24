@@ -6,7 +6,6 @@ import org.gradle.api.tasks.InputFiles
 
 open class PropertiesLoaderExtension(project: Project) {
 
-    @InputFiles
     val propertiesFiles: FileCollection
 
     init {

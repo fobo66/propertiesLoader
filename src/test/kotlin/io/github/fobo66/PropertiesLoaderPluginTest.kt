@@ -42,14 +42,14 @@ class PropertiesLoaderPluginTest {
 
     @Test
     fun `task not loads properties from files that are not properties`() {
-        project.file("test.txt").writeText("test")
+        project.file("test.txt").writeText("testkey=testvalue")
         project.tasks.named("loadProperties", PropertiesLoaderTask::class.java).configure {
             it.propertiesFiles.from(project.file("test.txt"))
         }
         val propertiesLoaderTask = project.tasks.named("loadProperties", PropertiesLoaderTask::class.java).get()
 
         propertiesLoaderTask.loadProperties()
-        assertFalse(project.extensions.extraProperties.has("testKey"))
+        assertFalse(project.extensions.extraProperties.has("testkey"))
     }
 
     @Test
