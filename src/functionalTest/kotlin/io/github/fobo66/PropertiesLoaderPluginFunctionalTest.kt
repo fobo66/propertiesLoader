@@ -3,6 +3,7 @@
  */
 package io.github.fobo66
 
+import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import java.io.File
@@ -27,12 +28,7 @@ class PropertiesLoaderPluginFunctionalTest {
         """)
 
         // Run the build
-        val runner = GradleRunner.create()
-                .forwardOutput()
-                .withPluginClasspath()
-                .withArguments("loadProperties")
-                .withProjectDir(projectDir)
-        val result = runner.build()
+        val result = runBuild(projectDir)
 
         // Verify the result
         assertNotNull(result.task(":loadProperties"))
@@ -55,13 +51,7 @@ class PropertiesLoaderPluginFunctionalTest {
             }
         """)
 
-        // Run the build
-        val runner = GradleRunner.create()
-                .forwardOutput()
-                .withPluginClasspath()
-                .withArguments("loadProperties")
-                .withProjectDir(projectDir)
-        val result = runner.build()
+        val result = runBuild(projectDir)
 
         // Verify the result
         assertEquals(TaskOutcome.SUCCESS, result.task(":loadProperties")?.outcome)
@@ -79,15 +69,18 @@ class PropertiesLoaderPluginFunctionalTest {
             }
         """)
 
-        // Run the build
-        val runner = GradleRunner.create()
+        val result = runBuild(projectDir)
+
+        // Verify the result
+        assertEquals(TaskOutcome.NO_SOURCE, result.task(":loadProperties")?.outcome)
+    }
+
+    private fun runBuild(projectDir: File): BuildResult {
+        return GradleRunner.create()
                 .forwardOutput()
                 .withPluginClasspath()
                 .withArguments("loadProperties")
                 .withProjectDir(projectDir)
-        val result = runner.build()
-
-        // Verify the result
-        assertEquals(TaskOutcome.NO_SOURCE, result.task(":loadProperties")?.outcome)
+                .build()
     }
 }
