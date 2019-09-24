@@ -7,6 +7,7 @@ import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Before
 import kotlin.test.Test
+import kotlin.test.assertFails
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 
@@ -49,5 +50,17 @@ class PropertiesLoaderPluginTest {
 
         propertiesLoaderTask.loadProperties()
         assertFalse(project.extensions.extraProperties.has("testKey"))
+    }
+
+    @Test
+    fun `task fails when file does not exists`() {
+        project.tasks.named("loadProperties", PropertiesLoaderTask::class.java).configure {
+            it.propertiesFiles.from(project.file("fake.properties"))
+        }
+        val propertiesLoaderTask = project.tasks.named("loadProperties", PropertiesLoaderTask::class.java).get()
+
+        assertFails {
+            propertiesLoaderTask.loadProperties()
+        }
     }
 }

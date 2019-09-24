@@ -3,7 +3,6 @@
  */
 package io.github.fobo66
 
-import org.gradle.testkit.runner.BuildResult
 import org.gradle.testkit.runner.GradleRunner
 import org.gradle.testkit.runner.TaskOutcome
 import java.io.File
@@ -28,7 +27,7 @@ class PropertiesLoaderPluginFunctionalTest {
         """)
 
         // Run the build
-        val result = runBuild(projectDir)
+        val result = prepareBuild(projectDir).build()
 
         // Verify the result
         assertNotNull(result.task(":loadProperties"))
@@ -51,10 +50,32 @@ class PropertiesLoaderPluginFunctionalTest {
             }
         """)
 
-        val result = runBuild(projectDir)
+        val result = prepareBuild(projectDir).build()
 
         // Verify the result
         assertEquals(TaskOutcome.SUCCESS, result.task(":loadProperties")?.outcome)
+    }
+
+    @Test
+    fun `task fails for non-existing file`() {
+        // Setup the test build
+        val projectDir = File("build/functionalTest")
+        projectDir.mkdirs()
+        projectDir.resolve("settings.gradle").writeText("")
+        projectDir.resolve("build.gradle").writeText("""
+            plugins {
+                id("io.github.fobo66.propertiesloader")
+            }
+            
+            propertiesLoader {
+                propertiesFiles.from(project.file("fake.properties"))
+            }
+        """)
+
+        val result = prepareBuild(projectDir).buildAndFail()
+
+        // Verify the result
+        assertEquals(TaskOutcome.FAILED, result.task(":loadProperties")?.outcome)
     }
 
     @Test
@@ -69,18 +90,17 @@ class PropertiesLoaderPluginFunctionalTest {
             }
         """)
 
-        val result = runBuild(projectDir)
+        val result = prepareBuild(projectDir).build()
 
         // Verify the result
         assertEquals(TaskOutcome.NO_SOURCE, result.task(":loadProperties")?.outcome)
     }
 
-    private fun runBuild(projectDir: File): BuildResult {
+    private fun prepareBuild(projectDir: File): GradleRunner {
         return GradleRunner.create()
                 .forwardOutput()
                 .withPluginClasspath()
                 .withArguments("loadProperties")
                 .withProjectDir(projectDir)
-                .build()
     }
 }
