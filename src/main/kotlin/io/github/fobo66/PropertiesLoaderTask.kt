@@ -18,17 +18,21 @@ open class PropertiesLoaderTask @Inject constructor(objects: ObjectFactory) : De
 
     @TaskAction
     fun loadProperties() {
+        logger.quiet("Starting loading properties")
         propertiesFiles.files.stream()
                 .filter { file -> file.name.endsWith(".properties") }
                 .map {
+                    logger.quiet("Trying to process properties file ${it.name}")
                     val properties = Properties()
                     properties.load(FileInputStream(it))
                     return@map properties
                 }
                 .flatMap {
+                    logger.quiet("Switching to properties' entries")
                     return@flatMap it.entries.stream()
                 }
                 .forEach {
+                    logger.quiet("Adding properties to extras")
                     project.extensions.extraProperties.set(it.component1().toString(), it.component2())
                 }
     }
