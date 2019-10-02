@@ -105,10 +105,12 @@ class PropertiesLoaderPluginFunctionalTest {
             }
             
             tasks.register("myTask1")
-            tasks.register("myTask2") 
+            tasks.register("myTask2") {
+                dependsOn(":myTask1")
+            }
         """)
 
-        val result = prepareBuild(projectDir, "myTask1").build()
+        val result = prepareBuild(projectDir, "myTask2").build()
 
         // Verify the result
         assertEquals(TaskOutcome.NO_SOURCE, result.task(":loadProperties")?.outcome)
