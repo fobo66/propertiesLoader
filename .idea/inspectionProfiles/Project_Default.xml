@@ -1,0 +1,9 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="FunctionName" enabled="true" level="WEAK WARNING" enabled_by_default="false">
+      <scope name="Tests" level="WEAK WARNING" enabled="false" />
+      <scope name="Production" level="WEAK WARNING" enabled="true" />
+    </inspection_tool>
+  </profile>
+</component>
