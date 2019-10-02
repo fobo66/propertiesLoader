@@ -50,3 +50,7 @@ val testkey : String by extra
 // or for task context
 val testkey = project.extensions.extraProperties.get("testkey")
 ```
+
+## Examples
+
+To see an example of how to use this plugin, see [functional tests](src/functionalTest/kotlin/io/github/fobo66/PropertiesLoaderPluginFunctionalTest.kt). There are all the needed properties defined in test cases in `build.gradle` "files".
