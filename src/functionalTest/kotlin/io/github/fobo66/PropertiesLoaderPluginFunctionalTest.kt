@@ -8,12 +8,11 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
 
 /**
- * A simple functional test for the 'io.github.fobo66.propertiesloader' plugin.
+ * Functional tests for the 'io.github.fobo66.propertiesloader' plugin.
  */
 class PropertiesLoaderPluginFunctionalTest {
     @Test
     fun `can run task`() {
-        // Setup the test build
         val projectDir = File("build/functionalTest")
         projectDir.mkdirs()
         projectDir.resolve("settings.gradle").writeText("")
@@ -23,16 +22,13 @@ class PropertiesLoaderPluginFunctionalTest {
             }
         """)
 
-        // Run the build
         val result = prepareBuild(projectDir).build()
 
-        // Verify the result
         assertNotNull(result.task(":loadProperties"))
     }
 
     @Test
     fun `task runs successfully`() {
-        // Setup the test build
         val projectDir = File("build/functionalTest")
         projectDir.mkdirs()
         projectDir.resolve("settings.gradle").writeText("")
@@ -49,13 +45,11 @@ class PropertiesLoaderPluginFunctionalTest {
 
         val result = prepareBuild(projectDir).build()
 
-        // Verify the result
         assertEquals(TaskOutcome.SUCCESS, result.task(":loadProperties")?.outcome)
     }
 
     @Test
     fun `task fails for non-existing file`() {
-        // Setup the test build
         val projectDir = File("build/functionalTest")
         projectDir.mkdirs()
         projectDir.resolve("settings.gradle").writeText("")
@@ -71,13 +65,11 @@ class PropertiesLoaderPluginFunctionalTest {
 
         val result = prepareBuild(projectDir).buildAndFail()
 
-        // Verify the result
         assertEquals(TaskOutcome.FAILED, result.task(":loadProperties")?.outcome)
     }
 
     @Test
     fun `task skipped when no input files`() {
-        // Setup the test build
         val projectDir = File("build/functionalTest")
         projectDir.mkdirs()
         projectDir.resolve("settings.gradle").writeText("")
@@ -89,13 +81,11 @@ class PropertiesLoaderPluginFunctionalTest {
 
         val result = prepareBuild(projectDir).build()
 
-        // Verify the result
         assertEquals(TaskOutcome.NO_SOURCE, result.task(":loadProperties")?.outcome)
     }
 
     @Test
     fun `task runs before any other task`() {
-        // Setup the test build
         val projectDir = File("build/functionalTest")
         projectDir.mkdirs()
         projectDir.resolve("settings.gradle").writeText("")
