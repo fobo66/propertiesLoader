@@ -28,3 +28,25 @@ propertiesLoader {
     propertiesFiles.from(project.file("api.properties"))
 }
 ```
+
+Given `api.properties` has the following content:
+
+```properties
+testkey=CHANGE_ME
+```
+
+Then you can access `testkey` via project extras. In Groovy DSL:
+
+```groovy
+ext.testkey
+// or for task context
+project.ext.testkey
+```
+
+For Kotlin DSL:
+
+```kotlin
+val testkey : String by extra
+// or for task context
+val testkey = project.extensions.extraProperties.get("testkey")
+```
