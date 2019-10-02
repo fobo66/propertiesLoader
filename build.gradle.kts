@@ -11,6 +11,9 @@ repositories {
     jcenter()
 }
 
+version = "1.0"
+group = "io.github.fobo66.propertiesloader"
+
 dependencies {
     implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
