@@ -6,6 +6,7 @@ import java.io.File
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
+import kotlin.test.assertTrue
 
 /**
  * Functional tests for the 'io.github.fobo66.propertiesloader' plugin.
@@ -46,6 +47,36 @@ class PropertiesLoaderPluginFunctionalTest {
         val result = prepareBuild(projectDir).build()
 
         assertEquals(TaskOutcome.SUCCESS, result.task(":loadProperties")?.outcome)
+    }
+
+    @Test
+    fun `tasks able to use extras`() {
+        val projectDir = File("build/functionalTest")
+        projectDir.mkdirs()
+        projectDir.resolve("settings.gradle").writeText("")
+        projectDir.resolve("test.properties").writeText("testkey=testvalue")
+        projectDir.resolve("build.gradle").writeText("""
+            plugins {
+                id("io.github.fobo66.propertiesloader")
+            }
+            
+            propertiesLoader {
+                propertiesFiles.from(project.file("test.properties"))
+            }
+            
+            tasks.register("myTask") {
+                doLast {
+                   
+                    print "Loaded prop: " + project.ext.testkey
+                }
+            }
+        """)
+
+        val result = prepareBuild(projectDir, "myTask").build()
+
+        assertTrue {
+            result.output.contains("Loaded prop: testvalue")
+        }
     }
 
     @Test
