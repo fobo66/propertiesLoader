@@ -10,6 +10,7 @@ import java.io.FileInputStream
 import java.util.*
 import javax.inject.Inject
 
+@Suppress("UnstableApiUsage")
 open class PropertiesLoaderTask @Inject constructor(objects: ObjectFactory) : DefaultTask() {
 
     @get:InputFiles
@@ -32,7 +33,7 @@ open class PropertiesLoaderTask @Inject constructor(objects: ObjectFactory) : De
                     return@flatMap it.entries.stream()
                 }
                 .forEach {
-                    logger.quiet("Adding properties to extras")
+                    logger.quiet("Adding property to extras")
                     project.extensions.extraProperties.set(it.component1().toString(), it.component2())
                 }
     }
