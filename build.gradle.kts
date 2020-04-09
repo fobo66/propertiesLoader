@@ -3,7 +3,7 @@
 plugins {
     `java-gradle-plugin`
 
-    id("org.jetbrains.kotlin.jvm") version "1.3.50"
+    id("org.jetbrains.kotlin.jvm") version "1.3.71"
     id("com.gradle.plugin-publish") version "0.10.0"
 }
 
