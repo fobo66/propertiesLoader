@@ -3,15 +3,15 @@
 plugins {
     `java-gradle-plugin`
 
-    id("org.jetbrains.kotlin.jvm") version "1.3.71"
-    id("com.gradle.plugin-publish") version "0.10.0"
+    id("org.jetbrains.kotlin.jvm") version "1.3.72"
+    id("com.gradle.plugin-publish") version "0.12.0"
 }
 
 repositories {
     jcenter()
 }
 
-version = "1.0"
+version = "1.1"
 group = "io.github.fobo66.propertiesloader"
 
 dependencies {
@@ -30,7 +30,7 @@ pluginBundle {
 gradlePlugin {
     val propertiesLoader by plugins.creating {
         id = "io.github.fobo66.propertiesloader"
-        displayName = "PropertiesLoader â€” load data from .properties files into project extras"
+        displayName = "PropertiesLoader – load data from .properties files into project extras"
         description = """A plugin that helps you with loading sensitive data like API keys from .properties files into project extras,
             | so you can use these sensitive keys right from ext
         """.trimMargin()
