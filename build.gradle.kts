@@ -30,7 +30,7 @@ pluginBundle {
 gradlePlugin {
     val propertiesLoader by plugins.creating {
         id = "io.github.fobo66.propertiesloader"
-        displayName = "PropertiesLoader – load data from .properties files into project extras"
+        displayName = "PropertiesLoader â€“ load data from .properties files into project extras"
         description = """A plugin that helps you with loading sensitive data like API keys from .properties files into project extras,
             | so you can use these sensitive keys right from ext
         """.trimMargin()
