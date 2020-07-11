@@ -3,19 +3,19 @@ package io.github.fobo66
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.model.ObjectFactory
-import org.gradle.api.tasks.InputFiles
-import org.gradle.api.tasks.SkipWhenEmpty
-import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.*
 import java.io.FileInputStream
 import java.util.*
 import javax.inject.Inject
 
 @Suppress("UnstableApiUsage")
-open class PropertiesLoaderTask @Inject constructor(objects: ObjectFactory) : DefaultTask() {
+@CacheableTask
+open class PropertiesLoaderTask : DefaultTask() {
 
     @get:InputFiles
+    @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:SkipWhenEmpty
-    val propertiesFiles: ConfigurableFileCollection = objects.fileCollection()
+    val propertiesFiles: ConfigurableFileCollection = project.files()
 
     @TaskAction
     fun loadProperties() {
