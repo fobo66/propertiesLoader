@@ -3,12 +3,12 @@
 plugins {
     `java-gradle-plugin`
 
-    id("org.jetbrains.kotlin.jvm") version "1.3.72"
+    id("org.jetbrains.kotlin.jvm") version "1.5.21"
     id("com.gradle.plugin-publish") version "0.12.0"
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
 }
 
 version = "1.1"
