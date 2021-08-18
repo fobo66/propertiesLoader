@@ -3,7 +3,7 @@
 plugins {
     `java-gradle-plugin`
 
-    id("org.jetbrains.kotlin.jvm") version "1.5.21"
+    kotlin("jvm") version "1.5.21"
     id("com.gradle.plugin-publish") version "0.12.0"
 }
 
@@ -15,10 +15,9 @@ version = "1.1"
 group = "io.github.fobo66.propertiesloader"
 
 dependencies {
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+    implementation(kotlin("stdlib"))
+    testImplementation(kotlin("test"))
+    testImplementation(kotlin("test-junit"))
 }
 
 pluginBundle {
