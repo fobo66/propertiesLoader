@@ -8,7 +8,6 @@ import java.io.FileInputStream
 import java.util.*
 import javax.inject.Inject
 
-@Suppress("UnstableApiUsage")
 @CacheableTask
 open class PropertiesLoaderTask : DefaultTask() {
 

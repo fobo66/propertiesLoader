@@ -1,4 +1,5 @@
 plugins {
+    `kotlin-dsl`
     `java-gradle-plugin`
 
     kotlin("jvm") version "1.5.21"
@@ -25,7 +26,7 @@ pluginBundle {
 }
 
 gradlePlugin {
-    val propertiesLoader by plugins.creating {
+    plugins.register("propertiesLoader") {
         id = "io.github.fobo66.propertiesloader"
         displayName = "PropertiesLoader – load data from .properties files into project extras"
         description = """A plugin that helps you with loading sensitive data like API keys from .properties files into project extras,
