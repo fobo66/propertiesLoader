@@ -3,11 +3,7 @@ package io.github.fobo66
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.testfixtures.ProjectBuilder
-import org.junit.Before
-import kotlin.test.Test
-import kotlin.test.assertFails
-import kotlin.test.assertFalse
-import kotlin.test.assertNotNull
+import kotlin.test.*
 
 /**
  * Unit tests for the 'io.github.fobo66.propertiesloader' plugin.
@@ -16,7 +12,7 @@ class PropertiesLoaderPluginTest {
 
     private lateinit var project: Project
 
-    @Before
+    @BeforeTest
     fun setUp() {
         project = ProjectBuilder.builder().build()
         project.plugins.apply("io.github.fobo66.propertiesloader")
