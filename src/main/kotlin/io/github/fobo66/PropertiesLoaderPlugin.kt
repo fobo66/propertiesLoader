@@ -8,7 +8,7 @@ import org.gradle.kotlin.dsl.register
 class PropertiesLoaderPlugin : Plugin<Project> {
 
     override fun apply(project: Project) {
-        val extension = project.extensions.create<PropertiesLoaderExtension>("propertiesLoader", project)
+        val extension = project.extensions.create<PropertiesLoaderExtension>("propertiesLoader")
 
         project.tasks.register<PropertiesLoaderTask>("loadProperties") {
             description = "Load properties from file to project extras"

@@ -4,17 +4,18 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
 import org.gradle.api.model.ObjectFactory
 import org.gradle.api.tasks.*
+import org.gradle.work.InputChanges
 import java.io.FileInputStream
 import java.util.*
 import javax.inject.Inject
 
 @CacheableTask
-open class PropertiesLoaderTask : DefaultTask() {
+abstract class PropertiesLoaderTask : DefaultTask() {
 
     @get:InputFiles
     @get:PathSensitive(PathSensitivity.RELATIVE)
     @get:SkipWhenEmpty
-    val propertiesFiles: ConfigurableFileCollection = project.files()
+    abstract val propertiesFiles: ConfigurableFileCollection
 
     @TaskAction
     fun loadProperties() {

@@ -1,13 +1,7 @@
 package io.github.fobo66
 
-import org.gradle.api.Project
-import org.gradle.api.file.FileCollection
+import org.gradle.api.file.ConfigurableFileCollection
 
-open class PropertiesLoaderExtension(project: Project) {
-
-    val propertiesFiles: FileCollection
-
-    init {
-        propertiesFiles = project.objects.fileCollection()
-    }
+abstract class PropertiesLoaderExtension {
+    abstract val propertiesFiles: ConfigurableFileCollection
 }
