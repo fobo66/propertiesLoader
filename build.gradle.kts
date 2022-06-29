@@ -3,7 +3,7 @@ plugins {
     `java-gradle-plugin`
 
     kotlin("jvm") version "1.7.0"
-    id("com.gradle.plugin-publish") version "0.21.0"
+    id("com.gradle.plugin-publish") version "1.0.0"
 }
 
 repositories {
