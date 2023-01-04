@@ -33,3 +33,34 @@ gradlePlugin {
         implementationClass = "io.github.fobo66.PropertiesLoaderPlugin"
     }
 }
+
+testing {
+    suites {
+        // Configure the built-in test suite
+        val test by getting(JvmTestSuite::class) {
+            // Use Kotlin Test test framework
+            useKotlinTest()
+
+            dependencies {
+                implementation(project())
+            }
+        }
+
+        // Create a new test suite
+        val functionalTest by registering(JvmTestSuite::class) {
+            // Use Kotlin Test test framework
+            useKotlinTest()
+
+            dependencies {
+                implementation(project())
+            }
+
+            targets {
+                all {
+                    // This test suite should run after the built-in test suite has run its tests
+                    testTask.configure { shouldRunAfter(test) }
+                }
+            }
+        }
+    }
+}
