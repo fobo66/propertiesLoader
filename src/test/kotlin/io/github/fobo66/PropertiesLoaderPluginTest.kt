@@ -3,7 +3,12 @@ package io.github.fobo66
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByName
 import org.gradle.testfixtures.ProjectBuilder
-import kotlin.test.*
+import kotlin.test.Test
+import kotlin.test.BeforeTest
+import kotlin.test.assertFails
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
+
 
 /**
  * Unit tests for the 'io.github.fobo66.propertiesloader' plugin.
