@@ -1,10 +1,15 @@
 package io.github.fobo66
 
+import java.io.FileInputStream
+import java.util.Properties
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.ConfigurableFileCollection
-import org.gradle.api.tasks.*
-import java.io.FileInputStream
-import java.util.*
+import org.gradle.api.tasks.CacheableTask
+import org.gradle.api.tasks.InputFiles
+import org.gradle.api.tasks.PathSensitive
+import org.gradle.api.tasks.PathSensitivity
+import org.gradle.api.tasks.SkipWhenEmpty
+import org.gradle.api.tasks.TaskAction
 
 @CacheableTask
 abstract class PropertiesLoaderTask : DefaultTask() {
