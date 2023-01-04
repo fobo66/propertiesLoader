@@ -1,18 +1,21 @@
-name: CI
+name: Check
 
 on: [push]
 
 jobs:
-  test:
+  check:
 
     runs-on: ubuntu-latest
-    
+
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-java@v3
-      with:
-        distribution: 'temurin'
-        java-version: '11'
-        cache: 'gradle'
-    - name: Run check
-      run: ./gradlew check
+      - uses: actions/checkout@v3.2.0
+      - uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+      - name: Check Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: Run check
+        uses: gradle/gradle-build-action@v2
+        with:
+          arguments: check
