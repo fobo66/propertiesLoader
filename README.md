@@ -35,7 +35,7 @@ Given `api.properties` has the following content:
 testkey=CHANGE_ME
 ```
 
-Then you can access `testkey` via project extras. In Groovy DSL:
+Then you can access `testkey` via project extras in your tasks. In Groovy DSL:
 
 ```groovy
 ext.testkey
