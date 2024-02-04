@@ -14,7 +14,7 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
       - name: Check Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+        uses: gradle/wrapper-validation-action@v2
       - name: Run check
         uses: gradle/gradle-build-action@v3.0.0
         with:
