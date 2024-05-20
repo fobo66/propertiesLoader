@@ -8,14 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
-          java-version: '17'
-      - name: Check Gradle wrapper
-        uses: gradle/wrapper-validation-action@v2
-      - name: Run check
-        uses: gradle/gradle-build-action@v3.3.2
+          java-version: '21'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
         with:
-          arguments: check
+          validate-wrappers: true
+      - name: Run check
+        run: ./gradlew check
