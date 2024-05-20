@@ -14,9 +14,14 @@ version = "1.1"
 group = "io.github.fobo66.propertiesloader"
 
 kotlin {
-    jvmToolchain {
-        version = 17
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_17
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 gradlePlugin {
