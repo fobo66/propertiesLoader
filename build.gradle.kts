@@ -5,7 +5,7 @@ plugins {
     `java-gradle-plugin`
 
     id("com.gradle.plugin-publish") version "1.2.2"
-    id("io.gitlab.arturbosch.detekt") version "1.23.6"
+    id("io.gitlab.arturbosch.detekt") version "1.23.7"
 }
 
 repositories {
