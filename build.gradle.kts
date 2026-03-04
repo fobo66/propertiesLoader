@@ -4,7 +4,7 @@ plugins {
     `kotlin-dsl`
     `java-gradle-plugin`
 
-    id("com.gradle.plugin-publish") version "2.0.0"
+    id("com.gradle.plugin-publish") version "2.1.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.8"
 }
 
