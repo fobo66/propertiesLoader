@@ -44,7 +44,7 @@ gradlePlugin {
 testing {
     suites {
         // Configure the built-in test suite
-        val test by getting(JvmTestSuite::class) {
+        val test = named<JvmTestSuite>("test") {
             // Use Kotlin Test test framework
             useKotlinTest()
 
@@ -54,7 +54,7 @@ testing {
         }
 
         // Create a new test suite
-        val functionalTest by registering(JvmTestSuite::class) {
+        register<JvmTestSuite>("functionalTest") {
             // Use Kotlin Test test framework
             useKotlinTest()
 
